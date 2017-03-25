@@ -154,8 +154,8 @@ def on_push(data):
     if branch != 'master' and not tag:
         app.logger.info({
             'status': 'ignored',
-            'source_event': {'type': 'push'},
-            'action': source_event,
+            'action': 'circleci_new_build',
+            'source_event': source_event,
             'payload': payload
         })
         return
