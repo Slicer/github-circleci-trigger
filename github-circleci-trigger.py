@@ -37,7 +37,7 @@ def ip_check(func):
             return func(*args, **kwargs)
 
         # Store the IP address of the requester
-        request_ip = ip_address(u'{0}'.format(request.remote_addr))
+        request_ip = ip_address(u'{0}'.format(request.access_route[0]))
 
         # If GHE_ADDRESS is specified, use it as the hook_blocks.
         if os.environ.get('GHE_ADDRESS', None):
