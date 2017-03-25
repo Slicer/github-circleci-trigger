@@ -79,7 +79,7 @@ def hello():
 
 
 @webhook.hook(event_type='ping')
-@ip_check
+#@ip_check
 def on_ping(data):
     return 'The impossible exists only until we find a way to make it possible'
 
