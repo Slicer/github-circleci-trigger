@@ -111,7 +111,7 @@ def on_pull_request(data):
     payload = {
         'repo': data['pull_request']['head']['repo']['full_name'],
         'branch': data['pull_request']['head']['ref'],
-        'tag': None,
+        'tag': '',
         'revision': data['pull_request']['head']['sha']
     }
 
@@ -135,8 +135,8 @@ def on_push(data):
 
     # Extract repo, branch and tag
     repo = data['repository']['full_name']
-    branch = None
-    tag = None
+    branch = ''
+    tag = ''
     if data['ref'].startswith('refs/tags/'):
         tag = data['ref'].lstrip('refs/tags/')
         branch = data['base_ref'].lstrip('refs/heads/')
