@@ -16,6 +16,10 @@ webhook = Webhook(app, endpoint='/postreceive', secret=os.environ.get('GITHUB_WE
 def ip_check(func):
     @wraps(func)
     def with_ip_check(*args, **kwargs):
+
+        if int(os.environ.get('DISABLE_IP_CHECK', False)):
+            return func(*args, **kwargs)
+
         # Store the IP address of the requester
         request_ip = ip_address(u'{0}'.format(request.remote_addr))
 
