@@ -1,4 +1,5 @@
 
+import logging
 import os
 
 from functools import wraps
@@ -6,11 +7,26 @@ from functools import wraps
 import requests
 
 from flask import abort, Flask, request
+from flask import logging as flask_logging
 from github_webhook import Webhook
 from ipaddress import ip_address, ip_network
 
 app = Flask(__name__)
 webhook = Webhook(app, endpoint='/postreceive', secret=os.environ.get('GITHUB_WEBHOOK_SECRET'))
+
+
+@app.before_first_request
+def setup_logging():
+    if app.debug:
+        return
+    # Add handler to Flask logger to send records to gunicorn stderr.
+    # https://github.com/benoitc/gunicorn/issues/379
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter(flask_logging.PROD_LOG_FORMAT))
+    app.logger.addHandler(handler)
+    app.logger.setLevel(logging.INFO)
+    # ... and disable existing handlers to avoid duplicated entries
+    app.config['LOGGER_HANDLER_POLICY'] = 'never'
 
 
 def ip_check(func):
