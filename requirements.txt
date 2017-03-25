@@ -2,3 +2,6 @@ Flask
 github-webhook
 ipaddress
 requests
+
+gevent
+gunicorn

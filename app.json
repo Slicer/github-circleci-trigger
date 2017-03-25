@@ -1,0 +1,7 @@
+{
+  "name": "GitHub CircleCI Trigger",
+  "description": "A simple GitHub post-receive web hook handler able to trigger a CircleCI build.",
+  "image": "heroku/python",
+  "repository": "https://github.com/Slicer/github-circleci-trigger",
+  "keywords": ["python", "circleci", "github", "trigger"],
+}
