@@ -62,12 +62,8 @@ def ip_check(func):
 
 
 def circleci_new_build(source_event, payload):
-    app.logger.info({
-        'status': 'triggered',
-        'action': 'circleci_new_build',
-        'source_event': source_event,
-        'payload': payload
-    })
+    app.logger.info(
+        "Triggered CircleCI build because of %s associated with %s" % (source_event, payload))
 
     worker_token = os.environ.get('CIRCLECI_TOKEN', None)
     if not worker_token:
@@ -118,12 +114,7 @@ def on_pull_request(data):
     source_event = {'type': 'pull_request', 'action': data['action'], 'number': data['number']}
 
     if data['action'] not in ['opened', 'edited']:
-        app.logger.info({
-            'status': 'ignored',
-            'action': 'circleci_new_build',
-            'source_event': source_event,
-            'payload': payload
-        })
+        app.logger.info("Ignoring %s associated with %s" % (source_event, payload))
         return
 
     circleci_new_build(source_event, payload)
@@ -152,12 +143,7 @@ def on_push(data):
     # Only consider Push event associated with update to 'master' branch
     # or tags.
     if branch != 'master' and not tag:
-        app.logger.info({
-            'status': 'ignored',
-            'action': 'circleci_new_build',
-            'source_event': source_event,
-            'payload': payload
-        })
+        app.logger.info("Ignoring %s associated with %s" % (source_event, payload))
         return
 
     circleci_new_build(source_event, payload)
