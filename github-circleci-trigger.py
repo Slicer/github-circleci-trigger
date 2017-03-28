@@ -78,6 +78,7 @@ def circleci_new_build(source_event, payload):
 
     response = requests.post(api_url, params={'circle-token': worker_token}, json={
         'build_parameters': {
+            'SLICER_REPO_PR_NUMBER': source_event.get('number', ''),
             'SLICER_REPO_NAME': payload['repo'],
             'SLICER_REPO_BRANCH': payload['branch'],
             'SLICER_REPO_TAG': payload['tag'],
