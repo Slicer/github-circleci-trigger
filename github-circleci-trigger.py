@@ -131,7 +131,7 @@ def on_push(data):
     tag = ''
     if data['ref'].startswith('refs/tags/'):
         tag = data['ref'].lstrip('refs/tags/')
-        branch = data['base_ref'].lstrip('refs/heads/')
+        # branch = data['base_ref'].lstrip('refs/heads/')
     elif data['ref'].startswith('refs/heads/'):
         branch = data['ref'].lstrip('refs/heads/')
     else:
