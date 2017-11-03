@@ -139,7 +139,7 @@ def on_push(data):
         abort(500)
 
     source_event = {'type': 'push'}
-    payload = {'repo': repo, 'branch': branch, 'tag': tag, 'revision': data['after']}
+    payload = {'repo': repo, 'branch': branch, 'tag': tag, 'revision': data["head_commit"]["id"]}
 
     # Only consider Push event associated with update to 'master' branch
     # or tags.
