@@ -20,7 +20,7 @@ $ export CIRCLECI_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # install server
 $ git clone https://github.com/Slicer/github-circleci-trigger
-$ pip install -r github-circleci-trigger/requirements
+$ pip install -r github-circleci-trigger/requirements.txt
 
 # start server
 $ cd github-circleci-trigger
