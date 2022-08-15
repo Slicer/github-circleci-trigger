@@ -141,9 +141,9 @@ def on_push(data):
     source_event = {'type': 'push'}
     payload = {'repo': repo, 'branch': branch, 'tag': tag, 'revision': data["head_commit"]["id"]}
 
-    # Only consider Push event associated with update to 'master' branch
+    # Only consider Push event associated with update to 'main' or `master` branches
     # or tags.
-    if branch != 'master' and not tag:
+    if branch not in ['main', 'master'] and not tag:
         app.logger.info("Ignoring %s associated with %s" % (source_event, payload))
         return
 
