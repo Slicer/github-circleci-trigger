@@ -12,10 +12,10 @@ First, from a terminal, install and start the server
 
 ```bash
 # create virtualenv
-$ mkvirtualenvwrapper github-circleci-trigger
+$ mkvirtualenv github-circleci-trigger
 
 # choose CircleCI project to trigger
-$ export CIRCLECI_REPO=orgname/worker-with-privileges
+$ export CIRCLECI_REPO=orgname/worker-with-privileges (e.g Slicer/apidocs.slicer.org)
 $ export CIRCLECI_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # install server
@@ -24,9 +24,9 @@ $ pip install -r github-circleci-trigger/requirements.txt
 
 # start server
 $ cd github-circleci-trigger
-$ FLASK_APP="github-circleci-trigger.py"
-$ GITHUB_WEBHOOK_SECRET="This is a secret"
-$ FLASK_DEBUG="1"
+$ export FLASK_APP="github-circleci-trigger.py"
+$ export GITHUB_WEBHOOK_SECRET="This is a secret"
+$ export FLASK_DEBUG="1"
 $ python -m flask run
  * Serving Flask app "github-circleci-trigger"
  * Forcing debug mode on
@@ -43,18 +43,22 @@ Then, open the URL ``http://127.0.0.1:5000`` in your favorite browser. It should
 Now, let's install [ngrok](https://ngrok.com/download) so that we can easily get a public URL
 and test.
 
-```bash
-$ unzip /path/to/ngrok.zip
-$ ngrok
+The `TOKEN` is available at https://dashboard.ngrok.com/get-started/your-authtoken
 
-https://ff9dc197.ngrok.io -> localhost:5000
+```bash
+$ unzip /path/to/ngrok-v3-stable-linux-amd64.tgz
+$ ngrok config add-authtoken TOKEN
+$ ngrok http 5000
+
+[...]
+Forwarding https://11ab-22-33-44-555.ngrok.io -> http://localhost:5000
 ```
 
 Open again the ``*.ngrok.io`` URL in your browser and it should still display ``Hello World!``.
 
 Last, open the settings of ``orgname/open-source-project`` GitHub project and add a webhook:
 
- * Payload URL: ``https://ff9dc197.ngrok.io/postreceive``
+ * Payload URL: ``https://11ab-22-33-44-555.ngrok.io/postreceive``
  * Content type: ``application/json``
  * Secret: ``This is a secret``
  * Let me select individual events: Check ``Push`` and ``Pull Request``
