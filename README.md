@@ -1,3 +1,20 @@
+> [!IMPORTANT]
+>
+> :warning: This repository is obsolete as of January 2025. :warning:
+>
+> Previously, this repository was deployed on Heroku[^1] and configured as a
+> webhook to trigger CircleCI builds for the `Slicer/apidocs.slicer.org` GitHub
+> project whenever updates were made to the Slicer repository.
+>
+> It has been superseded by the `trigger-doxygen-build-and-publish.yml` workflow,
+> introduced in Slicer pull request [#8144](https://github.com/Slicer/Slicer/pull/8144)
+> and maintained within the `Slicer` repository. This new workflow triggers the
+> `doxygen-build-and-publish.yml` workflow, which is maintained in the `apidocs.slicer.org` repository.
+>
+> [^1]: `https://github-circleci-trigger.herokuapp.com/`
+
+---
+
 # GitHub CircleCI Trigger
 
 A simple GitHub post-receive web hook handler able to trigger a CircleCI build.
